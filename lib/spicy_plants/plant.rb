@@ -5,11 +5,23 @@ module SpicyPlants
     AT_RISK = "At Risk"
   end
 
+  class PlantActions
+    FOOD = "Food"
+    WATER = "Water"
+    LIGHT = "Light"
+    NOTHING = "Nothing"
+  end
+
   class Plant
     attr_reader :plantName, :plantType, :isAlive, :plantHealthLevel, :plantAge
 
     PLANT_TYPES = ["House"]
-    PLANT_ACTIONS = ["Food", "Water", "Light", "Nothing"]
+    PLANT_ACTIONS = [
+      SpicyPlants::PlantActions::FOOD, 
+      SpicyPlants::PlantActions::WATER, 
+      SpicyPlants::PlantActions::LIGHT, 
+      SpicyPlants::PlantActions::NOTHING
+    ]
 
     def initialize(plantName, plantType)
       @plantName = plantName
@@ -24,19 +36,19 @@ module SpicyPlants
 
     def takeAction(action)
       case action
-      when "Food"
+      when SpicyPlants::PlantActions::FOOD
         giveFood
         loseWater
         loseLight
-      when "Water"
+      when SpicyPlants::PlantActions::WATER
         giveWater
         loseFood
         loseLight
-      when "Light"
+      when SpicyPlants::PlantActions::LIGHT
         giveLight
         loseWater
         loseFood
-      when "Nothing"
+      when SpicyPlants::PlantActions::NOTHING
         loseFood
         loseWater
         loseLight
