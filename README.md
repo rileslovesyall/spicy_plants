@@ -1,6 +1,6 @@
 # Spicy Plants
 
-Welcome to Spicy Plants, the plant growing CLI you've been waiting for your whole life. 
+Welcome to Spicy Plants, the plant growing game you've been waiting for your whole life. 
 
 ## To Play
 
