@@ -119,21 +119,56 @@ module SpicyPlants
         @waterLevel === 0 ||
         @sunLevel === 0)
         @isAlive = false
-        @plantHealthLevel = SpicyPlants::HealthLevel::AT_RISK
       end
 
       foodDamage = (@foodRange - @foodLevel).abs
       waterDamage = (@waterRange - @waterLevel).abs
       sunDamage = (@sunRange - @sunLevel).abs
 
+      statHealth = []
+
+      statHealth.push(getDamageLevel(foodDamage, @foodRange))
+      statHealth.push(getDamageLevel(waterDamage, @waterRange))
+      statHealth.push(getDamageLevel(sunDamage, @sunRange))
+
+
       healthLevel = SpicyPlants::HealthLevel::HEALTHY
-      if (foodDamage > @foodRange/2 || 
-        waterDamage > @waterRange/2 ||
-        sunDamage > @sunRange/2)
+      if (statHealth.include?(SpicyPlants::HealthLevel::NEARLY_DEAD))
+        healthLevel = SpicyPlants::HealthLevel::NEARLY_DEAD
+      elsif (statHealth.include?(SpicyPlants::HealthLevel::AT_RISK))
         healthLevel = SpicyPlants::HealthLevel::AT_RISK
       end
+
       @plantHealthLevel = healthLevel
     end
+
+    def getDamageLevel(damage, range)
+      # binding.pry
+      healthLevel = SpicyPlants::HealthLevel::HEALTHY
+      case damage
+      when range.to_f/3..range.to_f/3 *2
+        # binding.pry
+        healthLevel = SpicyPlants::HealthLevel::AT_RISK
+      when range.to_f/3..range.to_f
+        healthLevel = SpicyPlants::HealthLevel::NEARLY_DEAD
+      end
+      return healthLevel
+    end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   end 
 end
