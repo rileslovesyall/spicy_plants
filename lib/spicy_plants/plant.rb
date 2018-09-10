@@ -3,6 +3,7 @@ module SpicyPlants
   class HealthLevel
     HEALTHY = "Healthy"
     AT_RISK = "At Risk"
+    NEARLY_DEAD = "Nearly Dead"
   end
 
   class PlantActions
@@ -12,10 +13,15 @@ module SpicyPlants
     NOTHING = "Nothing"
   end
 
+  class PlantTypes
+    HOUSE = "House"
+    CARNIVOROUS = "Carnivorous"
+  end
+
   class Plant
     attr_reader :plantName, :plantType, :isAlive, :plantHealthLevel, :plantAge
 
-    PLANT_TYPES = ["House"]
+    PLANT_TYPES = [SpicyPlants::PlantTypes::HOUSE]
     PLANT_ACTIONS = [
       SpicyPlants::PlantActions::FOOD, 
       SpicyPlants::PlantActions::WATER, 
@@ -61,13 +67,20 @@ module SpicyPlants
 
     def setBaseStats(plantType)
       case plantType
-      when "House"
+      when SpicyPlants::PlantTypes::HOUSE
         @waterLevel = 10
         @sunLevel = 10
         @foodLevel = 10
         @maxSun = 20
         @maxFood = 20
         @maxWater = 20
+      when SpicyPlants::PlantTypes::CARNIVOROUS
+        @waterLevel = 5
+        @sunLevel = 5
+        @foodLevel = 2
+        @maxSun = 10
+        @maxFood = 4
+        @maxWater = 10
       end
       @foodRange = @maxFood/2
       @waterRange = @maxWater/2

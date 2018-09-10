@@ -5,4 +5,5 @@ describe SpicyPlants::Game do
     expect(game.plants).not_to eq(nil)
   end
 
+
 end

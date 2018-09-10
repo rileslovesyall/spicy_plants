@@ -19,7 +19,7 @@
 
     def takeTurn
       for plant in @plants do
-        puts "--------------------------------------"
+        puts "-------------------------------------"
         puts ""
         puts "Time to check on #{plant.plantName}!"
         puts ""
@@ -38,12 +38,19 @@
         puts "#{plant.plantName}'s current health level is: #{plant.plantHealthLevel}"
         puts "#{plant.plantName} has survived for #{plant.plantAge} days!"
         puts ""
+
         if !plant.isAlive
           @plants.delete(plant) 
           puts "Oh no, you killed #{plant.plantName} after #{plant.plantAge} days!"
           puts "This was a living thing. Try harder next time, eh?"
         end
-        if plant.isAlive && @newPlantCounter > 8
+
+        offerUserNewPlant if plant.isAlive
+      end
+    end
+
+    def offerUserNewPlant
+      if @newPlantCounter > 8
           puts "Would you like to add another plant to your collection? (y/n)"
           answer = gets.chomp
           case answer
@@ -56,8 +63,7 @@
           end
           @newPlantCounter = 0
         end
-        @newPlantCounter += 1
-      end
+      @newPlantCounter += 1
     end
 
     def addPlant()
