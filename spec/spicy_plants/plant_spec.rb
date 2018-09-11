@@ -2,8 +2,8 @@ require 'pry'
 
 describe SpicyPlants::Plant do
     before(:each) do
-      @housePlant = SpicyPlants::Plant.new("Larry", SpicyPlants::PlantTypes::HOUSE)
-      @carniePlant = SpicyPlants::Plant.new("Carnie", SpicyPlants::PlantTypes::CARNIVOROUS)
+      @housePlant = SpicyPlants::Plant.new("Larry", SpicyPlants::PlantTypes::TOMATO)
+      @carniePlant = SpicyPlants::Plant.new("Carnie", SpicyPlants::PlantTypes::PEPPER)
     end
 
     it "has a name" do
@@ -12,8 +12,8 @@ describe SpicyPlants::Plant do
     end
 
     it "has a type" do
-      expect(@housePlant.plantType).to eq(SpicyPlants::PlantTypes::HOUSE)
-      expect(@carniePlant.plantType).to eq(SpicyPlants::PlantTypes::CARNIVOROUS)
+      expect(@housePlant.plantType).to eq(SpicyPlants::PlantTypes::TOMATO)
+      expect(@carniePlant.plantType).to eq(SpicyPlants::PlantTypes::PEPPER)
     end
 
     it "can set Base Stats set for a house plant" do

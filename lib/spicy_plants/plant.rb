@@ -14,14 +14,14 @@ module SpicyPlants
   end
 
   class PlantTypes
-    HOUSE = "House"
-    CARNIVOROUS = "Carnivorous"
+    TOMATO = "Tomato"
+    PEPPER = "Pepper"
   end
 
   class Plant
     attr_reader :plantName, :plantType, :isAlive, :plantHealthLevel, :plantAge
 
-    PLANT_TYPES = [SpicyPlants::PlantTypes::HOUSE]
+    PLANT_TYPES = [SpicyPlants::PlantTypes::TOMATO, SpicyPlants::PlantTypes::PEPPER]
     PLANT_ACTIONS = [
       SpicyPlants::PlantActions::FOOD, 
       SpicyPlants::PlantActions::WATER, 
@@ -63,24 +63,30 @@ module SpicyPlants
       getHealth()
     end
 
+    def isHarvestable?
+      return @plantAge >= @harvestAge
+    end
+
     private
 
     def setBaseStats(plantType)
       case plantType
-      when SpicyPlants::PlantTypes::HOUSE
+      when SpicyPlants::PlantTypes::TOMATO
         @waterLevel = 10
         @sunLevel = 10
         @foodLevel = 10
         @maxSun = 20
         @maxFood = 20
         @maxWater = 20
-      when SpicyPlants::PlantTypes::CARNIVOROUS
+        @harvestAge = 2
+      when SpicyPlants::PlantTypes::PEPPER
         @waterLevel = 5
         @sunLevel = 5
         @foodLevel = 2
         @maxSun = 10
         @maxFood = 4
         @maxWater = 10
+        @harvestAge = 10
       end
       @foodRange = @maxFood/2
       @waterRange = @maxWater/2
@@ -143,30 +149,15 @@ module SpicyPlants
     end
 
     def getDamageLevel(damage, range)
-      # binding.pry
       healthLevel = SpicyPlants::HealthLevel::HEALTHY
       case damage
       when range.to_f/3..range.to_f/3 *2
-        # binding.pry
         healthLevel = SpicyPlants::HealthLevel::AT_RISK
       when range.to_f/3..range.to_f
         healthLevel = SpicyPlants::HealthLevel::NEARLY_DEAD
       end
       return healthLevel
     end
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
